@@ -2,8 +2,10 @@ package com.sparta.todoapp_project3.service;
 
 import com.sparta.todoapp_project3.entity.Comment;
 import com.sparta.todoapp_project3.entity.Schedule;
+import com.sparta.todoapp_project3.jwt.JwtUtil;
 import com.sparta.todoapp_project3.repository.CommentRepository;
 import com.sparta.todoapp_project3.repository.ScheduleRepository;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,15 @@ public class CommentService {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     // 댓글 등록 메서드
-    public Comment addComment(Long scheduleId, String content, Long userId) {
+    public Comment addComment(Long scheduleId, String content, String token) {
+        // 토큰 검증 및 사용자 식별
+        Claims claims = jwtUtil.getUserInfoFromToken(token);
+        Long userId = Long.parseLong(claims.getSubject());
+
         // 입력 유효성 검증
         if (scheduleId == null) {
             throw new IllegalArgumentException("일정 ID를 입력해 주세요.");
@@ -47,7 +56,11 @@ public class CommentService {
     }
 
     // 댓글 수정 메서드
-    public Comment updateComment(Long scheduleId, Long commentId, String content, Long userId) {
+    public Comment updateComment(Long scheduleId, Long commentId, String content, String token) {
+        // 토큰 검증 및 사용자 식별
+        Claims claims = jwtUtil.getUserInfoFromToken(token);
+        Long userId = Long.parseLong(claims.getSubject());
+
         // 입력 유효성 검증
         if (scheduleId == null || commentId == null) {
             throw new IllegalArgumentException("일정 ID와 댓글 ID를 입력해 주세요.");
@@ -83,7 +96,11 @@ public class CommentService {
     }
 
     // 댓글 삭제 메서드
-    public void deleteComment(Long scheduleId, Long commentId, Long userId) {
+    public void deleteComment(Long scheduleId, Long commentId, String token) {
+        // 토큰 검증 및 사용자 식별
+        Claims claims = jwtUtil.getUserInfoFromToken(token);
+        Long userId = Long.parseLong(claims.getSubject());
+
         // 입력 유효성 검증
         if (scheduleId == null || commentId == null) {
             throw new IllegalArgumentException("일정 ID와 댓글 ID를 입력해 주세요.");
