@@ -22,5 +22,15 @@ public class Comment {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // Getters and Setters
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
 }
