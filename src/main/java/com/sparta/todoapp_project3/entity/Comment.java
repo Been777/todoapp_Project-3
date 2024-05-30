@@ -56,4 +56,8 @@ public class Comment {
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
+
+    public LocalDateTime getUpdatedAt() {
+        return createdAt;
+    }
 }

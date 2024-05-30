@@ -16,7 +16,7 @@ public class CommentController {
     @PostMapping
     public ResponseEntity<?> addComment(@RequestParam Long scheduleId,
                                         @RequestParam String content,
-                                        @RequestParam Long userId) {
+                                        @RequestParam String userId) {
         try {
             Comment comment = commentService.addComment(scheduleId, content, userId);
             return ResponseEntity.ok(comment);
@@ -30,7 +30,7 @@ public class CommentController {
     public ResponseEntity<?> updateComment(@RequestParam Long scheduleId,
                                            @PathVariable Long commentId,
                                            @RequestParam String content,
-                                           @RequestParam Long userId) {
+                                           @RequestParam String userId) {
         try {
             Comment updatedComment = commentService.updateComment(scheduleId, commentId, content, userId);
             return ResponseEntity.ok(updatedComment);
@@ -43,7 +43,7 @@ public class CommentController {
     @DeleteMapping("/{commentId}")
     public ResponseEntity<?> deleteComment(@RequestParam Long scheduleId,
                                            @PathVariable Long commentId,
-                                           @RequestParam Long userId) {
+                                           @RequestParam String userId) {
         try {
             commentService.deleteComment(scheduleId, commentId, userId);
             return ResponseEntity.ok("댓글이 성공적으로 삭제되었습니다.");

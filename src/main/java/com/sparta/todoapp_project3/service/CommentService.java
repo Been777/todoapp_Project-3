@@ -25,6 +25,9 @@ public class CommentService {
 
     // 댓글 등록 메서드
     public Comment addComment(Long scheduleId, String content, String token) {
+        if (!jwtUtil.validateToken(token)) {
+            throw new IllegalArgumentException("토큰이 유효하지 않습니다.");
+        }
         // 토큰 검증 및 사용자 식별
         Claims claims = jwtUtil.getUserInfoFromToken(token);
         Long userId = Long.parseLong(claims.getSubject());
@@ -57,6 +60,9 @@ public class CommentService {
 
     // 댓글 수정 메서드
     public Comment updateComment(Long scheduleId, Long commentId, String content, String token) {
+        if (!jwtUtil.validateToken(token)) {
+            throw new IllegalArgumentException("토큰이 유효하지 않습니다.");
+        }
         // 토큰 검증 및 사용자 식별
         Claims claims = jwtUtil.getUserInfoFromToken(token);
         Long userId = Long.parseLong(claims.getSubject());
@@ -86,7 +92,7 @@ public class CommentService {
 
         // 댓글의 작성자 확인
         if (!comment.getUserId().equals(userId)) {
-            throw new IllegalArgumentException("댓글 작성자가 아닙니다.");
+            throw new IllegalArgumentException("작성자만 수정할 수 있습니다.");
         }
 
         // 댓글 내용 수정
@@ -97,6 +103,9 @@ public class CommentService {
 
     // 댓글 삭제 메서드
     public void deleteComment(Long scheduleId, Long commentId, String token) {
+        if (!jwtUtil.validateToken(token)) {
+            throw new IllegalArgumentException("토큰이 유효하지 않습니다.");
+        }
         // 토큰 검증 및 사용자 식별
         Claims claims = jwtUtil.getUserInfoFromToken(token);
         Long userId = Long.parseLong(claims.getSubject());
@@ -122,7 +131,7 @@ public class CommentService {
 
         // 댓글의 작성자 확인
         if (!comment.getUserId().equals(userId)) {
-            throw new IllegalArgumentException("댓글 작성자가 아닙니다.");
+            throw new IllegalArgumentException("작성자만 삭제할 수 있습니다.");
         }
 
         // 댓글 삭제
