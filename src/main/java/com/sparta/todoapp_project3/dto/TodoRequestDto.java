@@ -1,4 +1,4 @@
-package com.sparta.todoapp_project3.controller;
+package com.sparta.todoapp_project3.dto;
 
 import com.sparta.todoapp_project3.repository.Todo;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TodoRequestDTO {
+public class TodoRequestDto {
 
     private String title;
 

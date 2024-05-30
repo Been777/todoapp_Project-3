@@ -1,5 +1,7 @@
 package com.sparta.todoapp_project3.controller;
 
+import com.sparta.todoapp_project3.dto.TodoRequestDto;
+import com.sparta.todoapp_project3.dto.TodoResponseDto;
 import com.sparta.todoapp_project3.repository.Todo;
 import com.sparta.todoapp_project3.service.TodoService;
 import lombok.AllArgsConstructor;
@@ -17,37 +19,37 @@ public class TodoController {
     public final TodoService todoService;
 
     @PostMapping
-        public ResponseEntity<TodoResponseDTO> postTodo(@RequestBody TodoRequestDTO dto) {
+        public ResponseEntity<TodoResponseDto> postTodo(@RequestBody TodoRequestDto dto) {
             Todo todo = todoService.createTodo(dto);
-            TodoResponseDTO response = new TodoResponseDTO(todo);
+            TodoResponseDto response = new TodoResponseDto(todo);
             return ResponseEntity.ok().body(response);
         }
 
     @GetMapping("/{todoId}")
-    public ResponseEntity<TodoResponseDTO> getTodo(@PathVariable Long todoId) {
+    public ResponseEntity<TodoResponseDto> getTodo(@PathVariable Long todoId) {
         Todo todo = todoService.getTodo(todoId);
-        TodoResponseDTO response = new TodoResponseDTO(todo);
+        TodoResponseDto response = new TodoResponseDto(todo);
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping
-    public ResponseEntity<List<TodoResponseDTO>> getTodos() {
+    public ResponseEntity<List<TodoResponseDto>> getTodos() {
         List<Todo> todos = todoService.getTodos();
-        List<TodoResponseDTO> response = todos.stream()
-                .map(TodoResponseDTO::new)
+        List<TodoResponseDto> response = todos.stream()
+                .map(TodoResponseDto::new)
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(response);
     }
 
     @PutMapping("/{todoId}")
-    public ResponseEntity<TodoResponseDTO> putTodo(@PathVariable Long todoId, @RequestBody TodoRequestDTO dto) {
+    public ResponseEntity<TodoResponseDto> putTodo(@PathVariable Long todoId, @RequestBody TodoRequestDto dto) {
         Todo todo = todoService.updateTodo(todoId, dto);
-        TodoResponseDTO response = new TodoResponseDTO(todo);
+        TodoResponseDto response = new TodoResponseDto(todo);
         return ResponseEntity.ok().body(response);
     }
 
     @DeleteMapping("/{todoId}")
-    public ResponseEntity<Void> deleteTodo(@PathVariable Long todoId, @RequestBody TodoRequestDTO dto) {
+    public ResponseEntity<Void> deleteTodo(@PathVariable Long todoId, @RequestBody TodoRequestDto dto) {
         todoService.deleteTodo(todoId, dto.getPassword());
         return ResponseEntity.ok().build();
     }

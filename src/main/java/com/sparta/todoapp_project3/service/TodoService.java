@@ -1,6 +1,6 @@
 package com.sparta.todoapp_project3.service;
 
-import com.sparta.todoapp_project3.controller.TodoRequestDTO;
+import com.sparta.todoapp_project3.dto.TodoRequestDto;
 import com.sparta.todoapp_project3.repository.Todo;
 import com.sparta.todoapp_project3.repository.TodoRepository;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ public class TodoService {
     private final TodoRepository todoRepository;
 
     // 할일 생성
-    public Todo createTodo(TodoRequestDTO dto) {
+    public Todo createTodo(TodoRequestDto dto) {
         var newTodo = dto.toEntity();
         return todoRepository.save(newTodo);
     }
@@ -33,7 +33,7 @@ public class TodoService {
     }
 
     // 할일 수정
-    public Todo updateTodo(Long todoId, TodoRequestDTO dto) {
+    public Todo updateTodo(Long todoId, TodoRequestDto dto) {
             Todo todo = checkPWAndGetTodo(todoId, dto.getPassword());
 
             todo.setTitle(dto.getTitle());

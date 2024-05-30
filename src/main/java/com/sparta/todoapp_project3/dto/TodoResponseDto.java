@@ -1,4 +1,4 @@
-package com.sparta.todoapp_project3.controller;
+package com.sparta.todoapp_project3.dto;
 
 import com.sparta.todoapp_project3.repository.Todo;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class TodoResponseDTO {
+public class TodoResponseDto {
 
     private Long todoId;
 
@@ -20,7 +20,7 @@ public class TodoResponseDTO {
 
     private LocalDateTime createdAt;
 
-    public TodoResponseDTO(Todo todo) {
+    public TodoResponseDto(Todo todo) {
         this.todoId = todo.getTodoId();
         this.title = todo.getTitle();
         this.content = todo.getContent();

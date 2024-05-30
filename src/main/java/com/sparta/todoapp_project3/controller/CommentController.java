@@ -38,4 +38,17 @@ public class CommentController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    // 댓글 삭제 엔드포인트
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<?> deleteComment(@RequestParam Long scheduleId,
+                                           @PathVariable Long commentId,
+                                           @RequestParam Long userId) {
+        try {
+            commentService.deleteComment(scheduleId, commentId, userId);
+            return ResponseEntity.ok("댓글이 성공적으로 삭제되었습니다.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
