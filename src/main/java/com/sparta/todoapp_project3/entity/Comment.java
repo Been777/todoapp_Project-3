@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Comment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +23,28 @@ public class Comment {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    // Getter methods
+    public Long getId() {
+        return id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    // Setter methods
     public void setContent(String content) {
         this.content = content;
     }

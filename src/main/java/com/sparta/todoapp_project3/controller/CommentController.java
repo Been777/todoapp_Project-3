@@ -4,10 +4,7 @@ import com.sparta.todoapp_project3.entity.Comment;
 import com.sparta.todoapp_project3.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/comments")
@@ -23,6 +20,20 @@ public class CommentController {
         try {
             Comment comment = commentService.addComment(scheduleId, content, userId);
             return ResponseEntity.ok(comment);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    // 댓글 수정 엔드포인트
+    @PutMapping("/{commentId}")
+    public ResponseEntity<?> updateComment(@RequestParam Long scheduleId,
+                                           @PathVariable Long commentId,
+                                           @RequestParam String content,
+                                           @RequestParam Long userId) {
+        try {
+            Comment updatedComment = commentService.updateComment(scheduleId, commentId, content, userId);
+            return ResponseEntity.ok(updatedComment);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
